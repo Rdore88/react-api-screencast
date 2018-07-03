@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import  { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchFilms, fetchPlanets, fetchStarships } from '../actions/starwarsActions';
 
 class Login extends Component {
   state = { loggedIn: false }
+
+  handleLogin = event => {
+    this.props.fetchFilms()
+    this.props.fetchPlanets()
+    this.props.fetchStarships()
+  }
 
   render() {
     if (!this.state.loggedIn) {
       return (
         <Link to='/home'>
-          <button>Log In! </button>
+          <button onClick={this.handleLogin}>Log In! </button>
         </Link>
       )
     } else {
@@ -21,4 +30,18 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function mapStateToProps(state){
+  return {
+    
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    fetchFilms,
+    fetchPlanets,
+    fetchStarships
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

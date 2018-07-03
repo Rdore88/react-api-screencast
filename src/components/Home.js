@@ -1,47 +1,49 @@
 import React, { Component } from 'react';
+import  { connect } from 'react-redux';
 
 class Home extends Component {
-  state = {
-    films: [],
-    planets: [],
-    starships: []
-  }
-
-  componentDidMount() {
-    fetch('https://swapi.co/api/films')
-      .then(response => response.json())
-      .then(info => this.setState({ films: info.results }))
-
-    fetch('https://swapi.co/api/planets')
-      .then(response => response.json())
-      .then(info => this.setState({ planets: info.results }))
-
-    fetch('https://swapi.co/api/starships')
-      .then(response => response.json())
-      .then(info => this.setState({ starships: info.results }))
-  }
 
   render() {
-    let films = this.state.films.map((film, i) => <li key={i}>{film.title}</li>)
-    let planets = this.state.planets.map((planet, i) => <li key={i}>{planet.name}</li>)
-    let starships = this.state.starships.map((starship, i) => <li key={i}>{starship.name}</li>)
-    return (
-      <div className="starwars-info">
-        <div className="films">
-          <h3>All the films</h3>
-          {films}
+    if (this.props.films && this.props.planets && this.props.starships) {
+      let films = this.props.films.map((film, i) => <li key={i}>{film.title}</li>)
+      let planets = this.props.planets.map((planet, i) => <li key={i}>{planet.name}</li>)
+      let starships = this.props.starships.map((starship, i) => <li key={i}>{starship.title}</li>)
+      return (
+        <div className="starwars-info">
+          <div className="films">
+            <h3>All the films</h3>
+            {films}
+          </div>
+          <div className="planets">
+            <h3>All the Planets</h3>
+            {planets}
+          </div>
+          <div className="starships">
+            <h3>All the Starships</h3>
+            {starships}
+          </div>
         </div>
-        <div className="planets">
-          <h3>All the Planets</h3>
-          {planets}
-        </div>
-        <div className="starships">
-          <h3>All the Starships</h3>
-          {starships}
-        </div>
-      </div>
-    )
+      )
+    } else {
+      return <h1> Loading </h1>
+    }
+
   }
 }
 
-export default Home
+function mapStateToProps(state){
+  console.log(state);
+  return {
+    films: state.films,
+    planets: state.planets,
+    starships: state.starships
+  }
+}
+
+function mapDispatchToProps(dispatch){
+ return {
+
+ }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
