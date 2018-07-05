@@ -10,7 +10,9 @@ class Login extends Component {
   handleLogin = event => {
     this.props.fetchFilms()
     this.props.fetchPlanets()
-    this.props.fetchStarships()
+    this.props.fetchStarships().then(res => {
+      alert(res)
+    })
   }
 
   render() {
@@ -32,7 +34,7 @@ class Login extends Component {
 
 function mapStateToProps(state){
   return {
-    
+
   }
 }
 

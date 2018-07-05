@@ -23,8 +23,11 @@ function setStarships(info) {
 
 export function fetchStarships() {
   return dispatch => {
-    api.fetch(endPoints.ships)
-      .then(response => dispatch(setStarships(response.data.results)))
+    return api.fetch(endPoints.ships)
+      .then(response => {
+        dispatch(setStarships(response.data.results))
+        return "this worked"
+      })
       .catch(err => console.log(err))
   }
 }
