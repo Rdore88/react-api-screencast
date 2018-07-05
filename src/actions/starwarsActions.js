@@ -1,3 +1,5 @@
+import { api, endPoints } from './axiosConfig';
+
 function setFilms(info) {
   return {
     type: 'SET_FILMS',
@@ -21,27 +23,24 @@ function setStarships(info) {
 
 export function fetchStarships() {
   return dispatch => {
-    fetch('https://swapi.co/api/films')
-    .then(response => response.json())
-    .then(info => dispatch(setStarships(info.results)))
-    .catch(err => console.log(err))
+    api.fetch(endPoints.ships)
+      .then(response => dispatch(setStarships(response.data.results)))
+      .catch(err => console.log(err))
   }
 }
 
 export function fetchPlanets() {
   return dispatch => {
-    fetch('https://swapi.co/api/planets')
-    .then(response => response.json())
-    .then(info => dispatch(setPlanets(info.results)))
-    .catch(err => console.log(err))
+    api.fetch(endPoints.planets)
+      .then(response => dispatch(setPlanets(response.data.results)))
+      .catch(err => console.log(err))
   }
 }
 
 export function fetchFilms() {
   return dispatch => {
-    fetch('https://swapi.co/api/films')
-    .then(response => response.json())
-    .then(info => dispatch(setFilms(info.results)))
-    .catch(err => console.log(err))
+    api.fetch(endPoints.films)
+      .then(response => dispatch(setFilms(response.data.results)))
+      .catch(err => console.log(err))
   }
 }

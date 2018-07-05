@@ -7,7 +7,7 @@ class Home extends Component {
     if (this.props.films && this.props.planets && this.props.starships) {
       let films = this.props.films.map((film, i) => <li key={i}>{film.title}</li>)
       let planets = this.props.planets.map((planet, i) => <li key={i}>{planet.name}</li>)
-      let starships = this.props.starships.map((starship, i) => <li key={i}>{starship.title}</li>)
+      let starships = this.props.starships.map((starship, i) => <li key={i}>{starship.name}</li>)
       return (
         <div className="starwars-info">
           <div className="films">
